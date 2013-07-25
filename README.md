@@ -6,8 +6,8 @@ and not writing pointless controller code.
 Razz can also *act* as a static site, since the controller's responsibility is to locate the view and only locate 
 the view it's almost like a static site.
 
-# How to use it.
 
+# How to use it.
 
 ## Global.asax.cs
 
@@ -37,3 +37,8 @@ Will map to
       About
         Team.ascx
 
+# Languages
+
+Razz also comes with language support built in! It's english by default but if you include in the url like ~/fr/about/team~
+The CultureInfo will be changed to fr-CA (i guess you could include any valid culture code and it would work). This means
+you can take advantage of asp.net Resources to store language specific content.
