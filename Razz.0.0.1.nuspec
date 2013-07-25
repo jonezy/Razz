@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>Razz</id>
+        <version>0.0.1</version>
+        <authors>Chris Jones &lt;chris@jonezy.org&gt;</authors>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Frameowrk for rapid application development.</description>
+    </metadata>
+    <files>
+        <file src="lib\net40\Razz.dll" target="lib\net40\Razz.dll" />
+        <file src="lib\net40\Razz.pdb" target="lib\net40\Razz.pdb" />
+        <file src="lib\net40\System.Web.Mvc.dll" target="lib\net40\System.Web.Mvc.dll" />
+        <file src="lib\net40\System.Web.Mvc.xml" target="lib\net40\System.Web.Mvc.xml" />
+        <file src="lib\net45\Razz.dll" target="lib\net45\Razz.dll" />
+        <file src="lib\net45\Razz.pdb" target="lib\net45\Razz.pdb" />
+        <file src="lib\net45\System.Web.Mvc.dll" target="lib\net45\System.Web.Mvc.dll" />
+        <file src="lib\net45\System.Web.Mvc.xml" target="lib\net45\System.Web.Mvc.xml" />
+        <file src="tools\install.ps1" target="tools\install.ps1" />
+    </files>
+</package>
