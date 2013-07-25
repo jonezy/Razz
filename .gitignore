@@ -1,0 +1,12 @@
+bin
+obj
+*.suo
+*.user
+*.*~
+*.s3db
+Platform.Lite/Uploads
+*.nuspec
+*.nupkg
+__MVC_BACKUP
+.Release.config
+.Debug.config
