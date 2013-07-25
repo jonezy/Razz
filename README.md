@@ -1,6 +1,10 @@
 # Razz
 
-Some helpful stuff to make rapidly prototyping asp.net mvc projects easy peasy.
+Some helpful stuff to make rapidly prototyping asp.net mvc projects easy peasy.  Worry about building your app 
+and not writing pointless controller code.
+
+Razz can also *act* as a static site, since the controller's responsibility is to locate the view and only locate 
+the view it's almost like a static site.
 
 # How to use it.
 
