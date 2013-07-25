@@ -7,13 +7,10 @@ public class CompressFilter : ActionFilterAttribute {
     HttpRequestBase request = filterContext.HttpContext.Request;
 
     string acceptEncoding = request.Headers["Accept-Encoding"];
-
     if (string.IsNullOrEmpty(acceptEncoding)) return;
-
     acceptEncoding = acceptEncoding.ToUpperInvariant();
 
     HttpResponseBase response = filterContext.HttpContext.Response;
-
     if (acceptEncoding.Contains("GZIP")) {
       response.AppendHeader("Content-encoding", "gzip");
       response.Filter = new GZipStream(response.Filter, CompressionMode.Compress);
