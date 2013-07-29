@@ -20,9 +20,18 @@ namespace Razz.Controllers {
     protected override void OnActionExecuting(ActionExecutingContext filterContext) {
       string language = this.RouteData.Values["lang"].ToString();
 
-      if (language != null && !language.Equals(this.Language())) {
-        SetLanguage(language.ToString());
+      if (language != null && !language.Equals(GlobalBase.Lang)) {
+        GlobalBase.SetLanguage(language.ToString());
         Response.Redirect(this.Request.Url.ToString());
+      }
+
+      this.ControllerContext.RouteData.Values["controller"] = "home";
+      this.ControllerContext.RouteData.Values["action"] = "index";
+
+      if (this.RouteData.Values["pathInfo"] != null) {
+        string[] pathParts = this.RouteData.Values["pathInfo"].ToString().Split('/');
+        this.ControllerContext.RouteData.Values["controller"] = pathParts[0];
+        this.ControllerContext.RouteData.Values["action"] = pathParts.Length > 1 && !string.IsNullOrEmpty(pathParts[1]) ? pathParts[1] : "index";
       }
 
       base.OnActionExecuting(filterContext);
