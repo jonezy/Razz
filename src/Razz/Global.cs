@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Configuration;
 using System.Globalization;
 using System.Threading;
 using System.Web;
-using System.Configuration;
+using System.Web.Mvc;
 
 namespace Razz {
   public class GlobalBase : System.Web.HttpApplication {
@@ -26,6 +27,15 @@ namespace Razz {
     }
 
     public static string SwitchUrl {get;set;}
+
+    public static void RegisterGlobalFilters(GlobalFilterCollection filters) {
+      filters.Add(new HandleErrorAttribute());
+      filters.Add(new CompressFilter());
+    }
+
+    protected virtual void Application_Start() {
+      RegisterGlobalFilters(GlobalFilters.Filters);
+    }
 
     protected void Application_AcquireRequestState(object sender, EventArgs e) {
       if (HttpContext.Current.Session != null) {

@@ -1,8 +1,17 @@
-﻿using System.Globalization;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace Razz.Controllers {
   public class BaseController : Controller {
+
+    // this takes the incoming request and picks apart the *pathInfo to figure out what
+    // controller/action (ViewFolder/ViewFile) combo should be loaded.
+    // In fact that is a better way of thinking of it, anything after the domain
+    // maps to a view folder / view file
+    // 
+    // 
+    // /                  => views/home/index.cshtml
+    // /about/            => views/about/index.cshtml
+    // /products/oranges  => views/products/oranges.cshtml
     protected override void OnActionExecuting(ActionExecutingContext filterContext) {
       this.ControllerContext.RouteData.Values["controller"] = "home";
       this.ControllerContext.RouteData.Values["action"] = "index";
@@ -15,5 +24,6 @@ namespace Razz.Controllers {
 
       base.OnActionExecuting(filterContext);
     }
+
   }
 }
