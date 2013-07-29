@@ -25,24 +25,35 @@ namespace Razz {
       }
     }
 
+    public static string SwitchUrl {get;set;}
+
     protected void Application_AcquireRequestState(object sender, EventArgs e) {
       if (HttpContext.Current.Session != null) {
-        CultureInfo ci = (CultureInfo)this.Session["Culture"];
-        //Checking first if there is no value in session and set default language this can happen for first user's request
-        if (ci == null) {
-          string langName = "en";
+        if (!HttpContext.Current.Request.Url.AbsoluteUri.Contains(".css")
+          || !HttpContext.Current.Request.Url.AbsoluteUri.Contains(".js")
+          || !HttpContext.Current.Request.Url.AbsoluteUri.Contains(".gif")
+          || !HttpContext.Current.Request.Url.AbsoluteUri.Contains(".jpg")
+          || !HttpContext.Current.Request.Url.AbsoluteUri.Contains(".png")) {
+         
+          CheckDomain();
 
-          if (HttpContext.Current.Request.UserLanguages != null && HttpContext.Current.Request.UserLanguages.Length != 0) {
-            langName = HttpContext.Current.Request.UserLanguages[0].Substring(0, 2);
+          CultureInfo ci = (CultureInfo)this.Session["Culture"];
+          //Checking first if there is no value in session and set default language this can happen for first user's request
+          if (ci == null) {
+            string langName = "en";
+
+            if (HttpContext.Current.Request.UserLanguages != null && HttpContext.Current.Request.UserLanguages.Length != 0) {
+              langName = HttpContext.Current.Request.UserLanguages[0].Substring(0, 2);
+            }
+
+            ci = new CultureInfo(langName);
+
+            this.Session["Culture"] = ci;
           }
 
-          ci = new CultureInfo(langName);
-
-          this.Session["Culture"] = ci;
+          Thread.CurrentThread.CurrentUICulture = ci;
+          Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(ci.Name);
         }
-
-        Thread.CurrentThread.CurrentUICulture = ci;
-        Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(ci.Name);
       }
     }
 
@@ -54,9 +65,7 @@ namespace Razz {
 
       string requestUrl = HttpContext.Current.Request.Url.Host;
       // removes www. if it's present.
-      if (requestUrl.StartsWith("www.")) {
-        requestUrl = requestUrl.Remove(0, 4);
-      }
+      if (requestUrl.StartsWith("www.")) requestUrl = requestUrl.Remove(0, 4);
 
       foreach (var item in enUrls) {
         if (item.ToUpper() == requestUrl.ToUpper()) {
@@ -72,18 +81,15 @@ namespace Razz {
         }
       }
 
-      // this is a problem
-      if (frFound && enFound) {
-
-      }
-
       if (enFound) {
         SetLanguage("en");
+        SwitchUrl = string.Format("http://{0}", frUrls[frUrls.Length - 1]);
         return;
       }
 
       if (frFound) {
         SetLanguage("fr");
+        SwitchUrl = string.Format("http://{0}", enUrls[enUrls.Length - 1]);
         return;
       }
 

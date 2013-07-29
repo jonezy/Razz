@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\LanguageController.cs" />
     <Compile Include="Controllers\PageController.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="Infrastructure\CompressFilter.cs" />
